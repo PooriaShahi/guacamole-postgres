@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  guacd:
+    container_name: guacd
+    image: guacamole/guacd
+    ports:
+      - 4822:4822
+    networks:
+      - guacamole
+    hostname: guacd
+
+  guacamole:
+    container_name: guacamole
+    image: guacamole/guacamole
+    env_file:
+      - guacamole.env
+    depends_on:
+      - guacd
+    ports:
+      - 8080:8080
+    networks:
+      - guacamole
+    hostname: guacamole
+
+networks:
+  guacamole:
+    name: guacamole
